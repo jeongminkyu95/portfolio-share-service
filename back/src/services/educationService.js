@@ -46,6 +46,16 @@ class educationService {
 
       return education;
     }
+
+    static async getEducations({ user_id }) {
+        const educations = await Education.findById({ user_id });
+        if (!educations) {
+            const errorMessage =
+              "내역이 없습니다. 다시 한 번 확인해 주세요.";
+            return { errorMessage };
+          }
+        return educations;
+      }
   }
   
   export { educationService };

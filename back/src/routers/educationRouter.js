@@ -4,7 +4,7 @@ import { educationService } from "../services/educationService";
 
 const educationRouter = Router();
 
-// 추가
+// 학력 정보 추가
 educationRouter.post('/education/create', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -16,7 +16,6 @@ educationRouter.post('/education/create', async (req, res, next) => {
         const school = req.body.school;
         const major = req.body.major;
         const position = req.body.position;
-        // const user_id = await userAuthService.getUser({ email, password });
 
         const newEducation = await educationService.addEducation({
             user_id,
@@ -36,11 +35,10 @@ educationRouter.post('/education/create', async (req, res, next) => {
   }
 })
 
-// 수정
+// 학력 정보 수정
 educationRouter.put('/educations/:id', async (req, res, next) => {
     try{
         const user_id = req.params.id;
-        // console.log(user_id);
 	    const { school, major, position } = req.body;
 
         const toUpdate = { school, major, position };
@@ -55,5 +53,22 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
           next(error);
         }
 });
+
+ // 학력 정보 조회
+ educationRouter.get('/educationlist/:id', async (req, res, next) => {
+    try {
+        const user_id = req.params.id;
+
+        const educations = await educationService.getEducations({user_id});
+
+        if (educations.errorMessage) {
+            throw new Error(educations.errorMessage);
+         }
+         
+        res.status(200).send(educations);
+      } catch (error) {
+        next(error);
+      }
+ });
 
 export { educationRouter };
