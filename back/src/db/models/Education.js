@@ -6,21 +6,11 @@ class Education {
     return createdNewEducation;
   }
 
-//   static async findByEmail({ email }) {
-//     const user = await UserModel.findOne({ email });
-//     return user;
-//   }
-
   static async findById({ user_id }) {
     const user = await EducationModel.findOne({ user_id: user_id });
     // console.log(user);
     return user;
   }
-
-//   static async findAll() {
-//     const educations = await EducationModel.find({});
-//     return educations;
-//   }
 
   static async update({ user_id, fieldToUpdate, newValue }) {
     const filter = { user_id: user_id };

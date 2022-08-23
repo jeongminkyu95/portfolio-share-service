@@ -5,7 +5,7 @@ class educationService {
     static async addEducation({ user_id, school, major, position }) {
     //   // id 는 유니크 값 부여
       const id = uuidv4();
-    //   const newUser = { id, name, email, password: hashedPassword };
+      
       // db에 저장
       const newEducation = { id, user_id, school, major, position };
 
