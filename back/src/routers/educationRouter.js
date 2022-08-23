@@ -11,12 +11,14 @@ educationRouter.post('/education/create', async (req, res, next) => {
             "headers의 Content-Type을 application/json으로 설정해주세요"
           );
         }
-
+        const user_id=req.body.user_id;
         const school = req.body.school;
         const major = req.body.major;
         const position = req.body.position;
+        // const user_id = await userAuthService.getUser({ email, password });
 
         const newEducation = await educationService.addEducation({
+            user_id,
             school,
             major,
             position,

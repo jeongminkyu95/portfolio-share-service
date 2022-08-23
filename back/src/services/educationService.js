@@ -2,7 +2,7 @@ import { Education } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class educationService {
-    static async addEducation({ school, major, position }) {
+    static async addEducation({ user_id, school, major, position }) {
     //   // 이메일 중복 확인
     //   const user = await User.findByEmail({ email });
     //   if (user) {
@@ -18,7 +18,7 @@ class educationService {
       const id = uuidv4();
     //   const newUser = { id, name, email, password: hashedPassword };
       // db에 저장
-      const newEducation = { id, school, major, position };
+      const newEducation = { id, user_id, school, major, position };
 
       const createdNewEducation = await Education.create({ newEducation });
       createdNewEducation.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
