@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
-import * as Api from "api";
+import * as Api from "../../api";
 
 function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
   //useState로 title 상태를 생성함.
