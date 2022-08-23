@@ -4,6 +4,7 @@ import { educationService } from "../services/educationService";
 
 const educationRouter = Router();
 
+// 추가
 educationRouter.post('/education/create', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -34,5 +35,25 @@ educationRouter.post('/education/create', async (req, res, next) => {
     next(error);
   }
 })
+
+// 수정
+educationRouter.put('/educations/:id', async (req, res, next) => {
+    try{
+        const user_id = req.params.id;
+        // console.log(user_id);
+	    const { school, major, position } = req.body;
+
+        const toUpdate = { school, major, position };
+        const updatedEducation = await educationService.setEducation({ user_id, toUpdate });
+
+        if (updatedEducation.errorMessage) {
+           throw new Error(updatedEducation.errorMessage);
+        }
+
+        res.status(200).json(updatedEducation);
+        } catch (error) {
+          next(error);
+        }
+});
 
 export { educationRouter };
