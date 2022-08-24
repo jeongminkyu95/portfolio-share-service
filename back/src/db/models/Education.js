@@ -12,7 +12,7 @@ class Education {
   }
 
   static async findById({ id }) {
-    const education = await EducationModel.find({ id: id });
+    const education = await EducationModel.findOne({ id: id });
     return education;
   }
 
