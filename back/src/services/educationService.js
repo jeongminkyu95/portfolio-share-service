@@ -15,9 +15,9 @@ class educationService {
       return createdNewEducation;
     }
 
-    static async setEducation({ user_id, toUpdate }) {
+    static async setEducation({ id, toUpdate }) {
       // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-      let education = await Education.findById({ user_id });
+      let education = await Education.findById({ id });
   
       // db에서 찾지 못한 경우, 에러 메시지 반환
       if (!education) {
@@ -29,26 +29,26 @@ class educationService {
       if (toUpdate.school) {
         const fieldToUpdate = "school";
         const newValue = toUpdate.school;
-        education = await Education.update({ user_id, fieldToUpdate, newValue });
+        education = await Education.update({ id, fieldToUpdate, newValue });
       }
   
       if (toUpdate.major) {
         const fieldToUpdate = "major";
         const newValue = toUpdate.major;
-        education = await Education.update({ user_id, fieldToUpdate, newValue });
+        education = await Education.update({ id, fieldToUpdate, newValue });
       }
   
       if (toUpdate.position) {
         const fieldToUpdate = "position";
         const newValue = toUpdate.position;
-        education = await Education.update({ user_id, fieldToUpdate, newValue });
+        education = await Education.update({ id, fieldToUpdate, newValue });
       }
 
       return education;
     }
 
     static async getEducations({ user_id }) {
-        const educations = await Education.findById({ user_id });
+        const educations = await Education.findByUserId({ user_id });
         if (!educations) {
             const errorMessage =
               "내역이 없습니다. 다시 한 번 확인해 주세요.";

@@ -38,11 +38,11 @@ educationRouter.post('/education/create', async (req, res, next) => {
 // 학력 정보 수정
 educationRouter.put('/educations/:id', async (req, res, next) => {
     try{
-        const user_id = req.params.id;
-	    const { school, major, position } = req.body;
+        const id = req.params.id;
+	      const { school, major, position } = req.body;
 
         const toUpdate = { school, major, position };
-        const updatedEducation = await educationService.setEducation({ user_id, toUpdate });
+        const updatedEducation = await educationService.setEducation({ id, toUpdate });
 
         if (updatedEducation.errorMessage) {
            throw new Error(updatedEducation.errorMessage);
