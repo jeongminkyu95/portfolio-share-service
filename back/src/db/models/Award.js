@@ -12,7 +12,7 @@ class Award {
   }
 
   static async findById({ id }) {
-    const award = await AwardModel.find({ id: id });
+    const award = await AwardModel.findOne({ id: id });
     return award;
   }
 
