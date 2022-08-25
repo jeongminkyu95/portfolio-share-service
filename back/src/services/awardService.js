@@ -20,8 +20,9 @@ class awardService {
       let award = await Award.findById({ id });
       
       // db에서 찾지 못한 경우, 에러 메시지 반환
-      if (award.length == 0) {
-        const errorMessage = "내역이 없습니다. 다시 한 번 확인해 주세요.";
+      if (!award) {
+        const errorMessage =
+          "내역이 없습니다. 다시 한 번 확인해 주세요.";
         return { errorMessage };
       }
   
@@ -42,7 +43,7 @@ class awardService {
 
     static async getAwards({ user_id }) {
         const awards = await Award.findByUserId({ user_id });
-        if (!awards) {
+        if (awards.length === 0) {
             const errorMessage =
               "내역이 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
