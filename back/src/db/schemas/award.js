@@ -6,11 +6,11 @@ const AwardSchema = new Schema(
       type: String,
       required: true,
     },
-    title: {
+    user_id: {
       type: String,
       required: true,
     },
-    user_id: {
+    title: {
       type: String,
       required: true,
     },
@@ -24,6 +24,6 @@ const AwardSchema = new Schema(
   }
 );
 
-const AwardModel = model("Award", AwardSchema);
+const AwardModel = model( "Award", AwardSchema);
 
-export {AwardModel};
+export { AwardModel };
