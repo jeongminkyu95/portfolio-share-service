@@ -59,8 +59,8 @@ awardRouter.put('/awards/:id', async (req, res, next) => {
         const user_id = req.params.id;
 
         const awards = await awardService.getAwards({user_id});
-
-        if (awards.errorMessage) {
+        // console.log(awards); // user_id가 다를때 awards = [] 로 나옴
+        if (awards.errorMessage) { 
             throw new Error(awards.errorMessage);
          }
          

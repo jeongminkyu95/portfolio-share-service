@@ -18,9 +18,9 @@ class awardService {
     static async setAward({ id, toUpdate }) {
       // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
       let award = await Award.findById({ id });
-  
+      
       // db에서 찾지 못한 경우, 에러 메시지 반환
-      if (!award) {
+      if (award.length == 0) {
         const errorMessage = "내역이 없습니다. 다시 한 번 확인해 주세요.";
         return { errorMessage };
       }
