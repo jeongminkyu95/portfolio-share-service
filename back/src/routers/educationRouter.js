@@ -1,5 +1,6 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
+import { Education } from "../db";
 import { educationService } from "../services/educationService";
 
 const educationRouter = Router();
@@ -70,5 +71,21 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
         next(error);
       }
  });
+
+ // 학력 정보 삭제
+ educationRouter.delete('/educations/:id', async (req, res, next) => {
+	try {
+    const id = req.params.id;
+		const educations = await educationService.deleteEducation({ id });
+    
+    if (educations.errorMessage) {
+      throw new Error(educations.errorMessage);
+   }
+
+		res.json({ result: 'success' })
+	} catch (error) {
+		next(error);
+	};
+});
 
 export { educationRouter };

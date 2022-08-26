@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 class certificateService {
     static async addCertificate({ user_id, title, description, when_date }) {
-    //   // id 는 유니크 값 부여
+      // id 는 유니크 값 부여
       const id = uuidv4();
       
       // db에 저장
@@ -54,6 +54,17 @@ class certificateService {
       }
 
       return certificate;
+    }
+
+    static async deleteCertificate({ id }) {
+      let certificates = await Certificate.findById({ id });
+      if (!certificates) {
+        const errorMessage =
+          "내역이 없습니다. 다시 한 번 확인해 주세요.";
+        return { errorMessage };
+      }
+      certificates = await Certificate.deleteById({ id });
+      return certificates
     }
 }
 

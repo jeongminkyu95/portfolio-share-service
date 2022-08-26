@@ -71,4 +71,20 @@ certificateRouter.put('/certificates/:id', async (req, res, next) => {
       }
 });
 
+// 자격증 정보 삭제
+certificateRouter.delete('/certificates/:id', async (req, res, next) => {
+	try {
+    const id = req.params.id;
+		const certificates = await certificateService.deleteCertificate({ id });
+    
+    if (certificates.errorMessage) {
+      throw new Error(certificates.errorMessage);
+   }
+
+		res.json({ result: 'success' })
+	} catch (error) {
+		next(error);
+	};
+});
+
 export { certificateRouter };
