@@ -4,9 +4,11 @@ import * as Api from "../../api";
 
 function EducationEditForm({currentEducation, setEducations, setIsEditing}){
     //useState로 title 상태를 생성함.
-    const [title, setTitle ] = useState(currentEducation.title);
+    const [school, setSchool ] = useState(currentEducation.school);
     //useState로 description 상태를 생성함.
-    const [description, setDescription] = useState(currentEducation.description);
+    const [major, setMajor] = useState(currentEducation.major);
+
+    const [position, setPosition] =useState(currentEducation.position)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,8 +20,9 @@ function EducationEditForm({currentEducation, setEducations, setIsEditing}){
         //"Educations/학력 id"엔드포인트로 PUT 요청함.
         await Api.put(`educations/${currentEducation.id}`,{
             user_id,
-            title,
-            description,
+            school,
+            major,
+            position,
         });
 
         //"awardlist/유저id" 엔드포인트로 GET 요청함.
@@ -32,23 +35,67 @@ function EducationEditForm({currentEducation, setEducations, setIsEditing}){
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formBasicTitle">
+            <Form.Group controlId="formBasicSchool">
                 <Form.Control
                 type="text"
                 placeholder="학교이름"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={school}
+                onChange={(e) => setSchool(e.target.value)}
             />
             </Form.Group>
 
-            <Form.Group controlId="formBasicDescription" className="mt-3">
+            <Form.Group controlId="formBasicMajor" className="mt-3">
                 <Form.Control
                 type="text"
-                placeholder="상세내역"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                placeholder="전공"
+                value={major}
+                onChange={(e) => setMajor(e.target.value)}
             />
             </Form.Group>
+      
+  
+      <div key={`inline-radio`} className="mb-3 mt-3">
+        <Form.Check
+          inline
+          label="재학중"
+          id="radio1"
+          type="radio"
+          name="position"
+          value="재학중"
+          checked={position === "재학중"}
+          onChange={(e) => setPosition(e.target.value)}
+        />
+        <Form.Check
+          inline
+          label="학사졸업"
+          id="radio2"
+          type="radio"
+          name="position"
+          value="학사졸업"
+          checked={position === "학사졸업"}
+          onChange={(e) => setPosition(e.target.value)}
+        />
+        <Form.Check
+          inline
+          label="석사졸업"
+          id="radio3"
+          type="radio"
+          name="position"
+          value="석사졸업"
+          checked={position === "석사졸업"}
+          onChange={(e) => setPosition(e.target.value)}
+        />
+        <Form.Check
+          inline
+          label="박사졸업"
+          id="radio4"
+          type="radio"
+          name="position"
+          value="박사졸업"
+          checked={position === "박사졸업"}
+          onChange={(e) => setPosition(e.target.value)}
+        />
+      </div>
 
             <Form.Group as={Row} className="mt-3" text-center mb-4>
                 <Col sm={{ span : 20}}>
