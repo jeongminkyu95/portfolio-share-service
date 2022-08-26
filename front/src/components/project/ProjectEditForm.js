@@ -6,25 +6,23 @@ import DatePicker from "react-datepicker";
 function ProjectEditForm({ currentProject, setProjects, setIsEditing }) {
   const [title, setTitle] = useState(currentProject.title);
   const [description, setDescription] = useState(currentProject.description);
-  const [startDate, setStartDate] = useState(
-    new Date(currentProject.startDate)
-  );
-  const [endDate, setEndDate] = useState(new Date(currentProject.endDate));
+  const [fromDate, setFromDate] = useState(new Date(currentProject.from_date));
+  const [toDate, setToDate] = useState(new Date(currentProject.to_date));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const user_id = currentProject.user_id;
-    const start_date = startDate.toISOString().split("T")[0];
-    const end_date = endDate.toISOString().split("T")[0];
+    const from_date = fromDate.toISOString().split("T")[0];
+    const to_date = toDate.toISOString().split("T")[0];
 
     await Api.put(`projects/${currentProject.id}`, {
       user_id,
       title,
       description,
-      start_date,
-      end_date,
+      from_date,
+      to_date,
     });
 
     const res = await Api.get("projectlist", user_id);
@@ -55,15 +53,12 @@ function ProjectEditForm({ currentProject, setProjects, setIsEditing }) {
       <Form.Group as={Row} className="mt-3">
         <Col xs="auto">
           <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            selected={fromDate}
+            onChange={(date) => setFromDate(date)}
           />
         </Col>
         <Col xs="auto">
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-          />
+          <DatePicker selected={toDate} onChange={(date) => setToDate(date)} />
         </Col>
       </Form.Group>
 

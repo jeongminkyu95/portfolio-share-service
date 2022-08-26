@@ -10,7 +10,7 @@ function ProjectCard({ project, isEditable, setIsEditing }) {
           <span className="text-muted">{project.description}</span>
           <br />
           <span className="text-muted">
-            {`${project.start_date} ~ ${project.end_date}`}
+            {`${project.from_date} ~ ${project.to_date}`}
           </span>
         </Col>
         {isEditable && (

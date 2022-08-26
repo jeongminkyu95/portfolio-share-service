@@ -7,23 +7,23 @@ import * as Api from "../../api";
 function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [fromDate, setFromDate] = useState(new Date());
+  const [toDate, setToDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const user_id = portfolioOwnerId;
-    const start_date = startDate.toISOString().split("T")[0];
-    const end_date = endDate.toISOString().split("T")[0];
+    const from_date = fromDate.toISOString().split("T")[0];
+    const to_date = toDate.toISOString().split("T")[0];
 
     await Api.post("project/create", {
       user_id: portfolioOwnerId,
       title,
       description,
-      start_date,
-      end_date,
+      from_date,
+      to_date,
     });
 
     const res = await Api.get("projectlist", user_id);
@@ -53,15 +53,12 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
       <Form.Group as={Row} className="mt-3">
         <Col xs="auto">
           <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            selected={fromDate}
+            onChange={(date) => setFromDate(date)}
           />
         </Col>
         <Col xs="auto">
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-          />
+          <DatePicker selected={toDate} onChange={(date) => setToDate(date)} />
         </Col>
       </Form.Group>
 
