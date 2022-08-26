@@ -54,7 +54,7 @@ projectRouter.post('/project/create', async (req, res, next) => {
     }
 });
 
-// 자격증 정보 수정
+// 프로젝트 정보 수정
 projectRouter.put('/projects/:id', async (req, res, next) => {
   try{
       const id = req.params.id;
@@ -68,6 +68,24 @@ projectRouter.put('/projects/:id', async (req, res, next) => {
       }
 
       res.status(200).json(updatedProject);
+      } catch (error) {
+        next(error);
+      }
+});
+
+// 프로젝트 정보 삭제
+projectRouter.delete('/projects/:id', async (req, res, next) => {
+  try{
+      const id = req.params.id;
+      const deletedProject = await projectService.deleteProject({id});
+
+      if (deletedProject.errorMessage) {
+        throw new Error(deletedProject.errorMessage);
+
+      } else {
+        res.send("삭제가 완료되었습니다.")
+      }
+
       } catch (error) {
         next(error);
       }

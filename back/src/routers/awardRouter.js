@@ -70,4 +70,22 @@ awardRouter.put('/awards/:id', async (req, res, next) => {
       }
  });
 
+ // 수상 내역 삭제
+awardRouter.delete('/awards/:id', async (req, res, next) => {
+  try{
+      const id = req.params.id;
+      const deletedAward = await awardService.deleteAward({id});
+
+      if (deletedAward.errorMessage) {
+        throw new Error(deletedAward.errorMessage);
+
+      } else {
+        res.send("삭제가 완료되었습니다.")
+      }
+
+      } catch (error) {
+        next(error);
+      }
+});
+
 export { awardRouter };
