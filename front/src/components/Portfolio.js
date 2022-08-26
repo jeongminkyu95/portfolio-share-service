@@ -7,6 +7,7 @@ import * as Api from "../api";
 import User from "./user/User";
 import Awards from "./award/Awards";
 import Projects from "./project/Projects";
+import CertForm from "./certificate/CertForm";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -69,6 +70,11 @@ function Portfolio() {
           />
           <div class="mb-2"></div>
           <Projects
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <div class="mb-2"></div>
+          <CertForm
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
