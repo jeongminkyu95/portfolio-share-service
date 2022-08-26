@@ -82,7 +82,7 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
       throw new Error(educations.errorMessage);
    }
 
-		res.json({ result: 'success' })
+		res.send("삭제가 완료되었습니다.");
 	} catch (error) {
 		next(error);
 	};

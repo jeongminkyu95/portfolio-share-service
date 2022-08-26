@@ -1,6 +1,5 @@
 import { Project } from "../db";
 import { v4 as uuidv4 } from "uuid";
-import { ProjectModel } from "../db/schemas/project";
 
 class projectService {
     static async addProject({ user_id, title, description, from_date, to_date }) {
@@ -60,18 +59,14 @@ class projectService {
     }
 
     static async deleteProject({ id }) {
-        const projects = await Project.findById({ id });
-        // const projects = await ProjectModel
-        // console.log({id});
-        
+        let projects = await Project.findById({ id });
         if (!projects) {
             const errorMessage = "내역이 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
         }
+        projects  = await Project.deleteById({ id });
 
-        const deletedProject = await ProjectModel.deleteOne({ id });
-
-        return deletedProject;
+        return projects;
     }
 
 }

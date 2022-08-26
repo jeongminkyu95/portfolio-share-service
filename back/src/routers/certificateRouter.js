@@ -81,7 +81,7 @@ certificateRouter.delete('/certificates/:id', async (req, res, next) => {
       throw new Error(certificates.errorMessage);
    }
 
-		res.json({ result: 'success' })
+    res.send("삭제가 완료되었습니다.");
 	} catch (error) {
 		next(error);
 	};

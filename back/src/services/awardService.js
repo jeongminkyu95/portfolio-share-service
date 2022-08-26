@@ -1,6 +1,5 @@
 import { Award } from "../db";
 import { v4 as uuidv4 } from "uuid";
-import { AwardModel } from "../db/schemas/award";
 
 class awardService {
     static async addAward({ user_id, title, description }) {
@@ -53,16 +52,15 @@ class awardService {
       }
 
       static async deleteAward({ id }) {
-        const awards = await Award.findById({ id });
+        let awards = await Award.findById({ id });
 
         if (!awards) {
             const errorMessage = "내역이 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
         }
+        awards = await Award.deleteById({ id });
 
-        const deletedAward = await AwardModel.deleteOne({ id });
-
-        return deletedAward;
+        return awards;
     }
     
   }
