@@ -2,21 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Col, Row, Card } from "react-bootstrap";
 import * as Api from "../../api";
 import { EditCert } from "./CertCard";
-import Calendar from "./CertCalendar";
+import DatePicker from "react-datepicker";
 
 function CertAddForm({ portfolioOwnerId, setCerts, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [whenDate, setWhenDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const user_id = portfolioOwnerId;
-    const when_date = new Date(+new Date() + 3240 * 10000)
-      .toISOString()
-      .split("T")[0];
+    const when_date = whenDate.toISOString().split("T")[0];
 
     await Api.post("certificate/create", {
       user_id: portfolioOwnerId,
@@ -34,7 +32,6 @@ function CertAddForm({ portfolioOwnerId, setCerts, setIsAdding }) {
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle">
         <Form.Control
-          dateformat="yyyy-MM-dd"
           type="text"
           placeholder="자격증 제목"
           value={title}
@@ -52,12 +49,9 @@ function CertAddForm({ portfolioOwnerId, setCerts, setIsAdding }) {
       </Form.Group>
 
       <Form.Group className="mt-3">
-        <Calendar
-          type="text"
-          value={selectedDate}
-          onChange={(e) => {
-            setSelectedDate(e.target.value);
-          }}
+        <DatePicker
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
         />
       </Form.Group>
 

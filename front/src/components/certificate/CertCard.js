@@ -32,7 +32,7 @@ const CertCard = ({ cert, isEditable, setIsEditing }) => {
           <br />
           <span className="text-muted">{cert.description}</span>
           <br />
-          <span>{cert.selectedDate}</span>
+          <span className="text-muted">{cert.when_date}</span>
         </Col>
         {isEditable && (
           <Col xs lg="1">

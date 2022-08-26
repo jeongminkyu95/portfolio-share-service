@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
-import Calendar from "./CertCalendar";
+import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
 const CertEditForm = ({ currentCert, setCerts, setIsEditing }) => {
   const [title, setTitle] = useState(currentCert.title);
   const [description, setDescription] = useState(currentCert.description);
-  const [when_date, setWhen_date] = useState(currentCert.when_date);
+  const [whenDate, setWhenDate] = useState(new Date(currentCert.when_date));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const user_id = currentCert.user_id;
+    const when_date = whenDate.toISOString().split("T")[0];
 
     await Api.put(`certificates/${currentCert.id}`, {
       user_id,
@@ -47,12 +48,9 @@ const CertEditForm = ({ currentCert, setCerts, setIsEditing }) => {
       </Form.Group>
 
       <Form.Group className="mt-3">
-        <Calendar
-          type="text"
-          value={when_date}
-          onChange={(e) => {
-            setWhen_date(e.target.value);
-          }}
+        <DatePicker
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
         />
       </Form.Group>
 
