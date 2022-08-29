@@ -4,6 +4,7 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 
 const EditCert = ({ cert, setCerts, isEditable }) => {
   const [isEditing, setIsEditing] = useState(false);
+
   return (
     <>
       {isEditing ? (

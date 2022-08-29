@@ -1,40 +1,37 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
 
-function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
-  //useState로 title 상태를 생성함.
+function CertAddForm({ portfolioOwnerId, setCerts, setIsAdding }) {
   const [title, setTitle] = useState("");
-  //useState로 description 상태를 생성함.
   const [description, setDescription] = useState("");
+  const [whenDate, setWhenDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // portfolioOwnerId를 user_id 변수에 할당함.
     const user_id = portfolioOwnerId;
+    const when_date = whenDate.toISOString().split("T")[0];
 
-    // "award/create" 엔드포인트로 post요청함.
     try {
-      await Api.post("award/create", {
+      await Api.post("certificate", {
         user_id: portfolioOwnerId,
         title,
         description,
+        when_date,
       });
     } catch (error) {
-      console.log("error");
+      console.log("failed to get API");
     }
 
-    // "awardlist/유저id" 엔드포인트로 get요청함.
     try {
-      const res = await Api.get("awardlist", user_id);
-      // awards를 response의 data로 세팅함.
-      setAwards(res.data);
-      // award를 추가하는 과정이 끝났으므로, isAdding을 false로 세팅함.
+      const res = await Api.get("certificates", user_id);
+      setCerts(res.data);
       setIsAdding(false);
     } catch (err) {
-      console.log("err");
+      console.log("error");
     }
   };
 
@@ -43,7 +40,7 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
       <Form.Group controlId="formBasicTitle">
         <Form.Control
           type="text"
-          placeholder="수상내역"
+          placeholder="자격증 제목"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -55,6 +52,13 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
           placeholder="상세내역"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mt-3">
+        <DatePicker
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
         />
       </Form.Group>
 
@@ -72,4 +76,4 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
   );
 }
 
-export default AwardAddForm;
+export default CertAddForm;
