@@ -12,7 +12,7 @@ function Educations ({ portfolioOwnerId, isEditable}){
 
     useEffect(() => {
         //"educationlist/유저id"로 GET 요청하고, response의 data로 awards를 세팅함.
-        Api.get("educationlist", portfolioOwnerId).then((res) => setEducations(res.data));
+        Api.get("educations", portfolioOwnerId).then((res) => setEducations(res.data));
     }, [portfolioOwnerId]);
 
     return (
