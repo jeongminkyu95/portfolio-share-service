@@ -5,7 +5,7 @@ import { projectService } from "../services/projectService";
 const projectRouter = Router();
 
 // 프로젝트 정보 추가
-projectRouter.post('/project/create', async (req, res, next) => {
+projectRouter.post('/project', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
           throw new Error(
@@ -38,7 +38,7 @@ projectRouter.post('/project/create', async (req, res, next) => {
 });
 
  // 프로젝트 정보 조회
- projectRouter.get('/projectlist/:id', async (req, res, next) => {
+ projectRouter.get('/projects/:id', async (req, res, next) => {
   try {
       const user_id = req.params.id;
 

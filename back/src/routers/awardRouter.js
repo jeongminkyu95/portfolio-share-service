@@ -6,7 +6,7 @@ import { awardService } from "../services/awardService";
 const awardRouter = Router();
 
 // 수상 내역 추가
-awardRouter.post('/award/create', async (req, res, next) => {
+awardRouter.post('/award', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
           throw new Error(
@@ -54,7 +54,7 @@ awardRouter.put('/awards/:id', async (req, res, next) => {
 });
 
  // 수상 내역 조회
- awardRouter.get('/awardlist/:id', async (req, res, next) => {
+ awardRouter.get('/awards/:id', async (req, res, next) => {
     try {
         const user_id = req.params.id;
 

@@ -5,7 +5,7 @@ import { certificateService } from "../services/certificateService";
 const certificateRouter = Router();
 
 // 자격증 정보 추가
-certificateRouter.post('/certificate/create', async (req, res, next) => {
+certificateRouter.post('/certificate', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
           throw new Error(
@@ -36,7 +36,7 @@ certificateRouter.post('/certificate/create', async (req, res, next) => {
 });
 
  // 자격증 정보 조회
- certificateRouter.get('/certificatelist/:id', async (req, res, next) => {
+ certificateRouter.get('/certificates/:id', async (req, res, next) => {
   try {
       const user_id = req.params.id;
 
