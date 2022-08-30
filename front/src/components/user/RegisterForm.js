@@ -50,6 +50,7 @@ function RegisterForm() {
       });
 
       // 로그인 페이지로 이동함.
+      alert('회원가입이 완료되었습니다'); 
       navigate("/login");
     } catch (err) {
       console.log("회원가입에 실패하였습니다.", err);
