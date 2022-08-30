@@ -5,7 +5,7 @@ import { educationService } from "../services/educationService";
 const educationRouter = Router();
 
 // 학력 정보 추가
-educationRouter.post('/education/create', async (req, res, next) => {
+educationRouter.post('/education', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
           throw new Error(
@@ -55,7 +55,7 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
 });
 
  // 학력 정보 조회
- educationRouter.get('/educationlist/:id', async (req, res, next) => {
+ educationRouter.get('/educations/:id', async (req, res, next) => {
     try {
         const user_id = req.params.id;
 
@@ -70,5 +70,21 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
         next(error);
       }
  });
+
+ // 학력 정보 삭제
+ educationRouter.delete('/educations/:id', async (req, res, next) => {
+	try {
+    const id = req.params.id;
+		const educations = await educationService.deleteEducation({ id });
+    
+    if (educations.errorMessage) {
+      throw new Error(educations.errorMessage);
+   }
+
+		res.send("삭제가 완료되었습니다.");
+	} catch (error) {
+		next(error);
+	};
+});
 
 export { educationRouter };

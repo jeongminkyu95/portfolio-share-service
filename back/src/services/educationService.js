@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 class educationService {
     static async addEducation({ user_id, school, major, position }) {
-    //   // id 는 유니크 값 부여
+      // id 는 유니크 값 부여
       const id = uuidv4();
       
       // db에 저장
@@ -49,12 +49,23 @@ class educationService {
 
     static async getEducations({ user_id }) {
         const educations = await Education.findByUserId({ user_id });
-        if (!educations) {
+        if (educations.length === 0) {
             const errorMessage =
               "내역이 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
           }
         return educations;
+      }
+
+      static async deleteEducation({ id }) {
+        let educations = await Education.findById({ id });
+        if (!educations) {
+          const errorMessage =
+            "내역이 없습니다. 다시 한 번 확인해 주세요.";
+          return { errorMessage };
+        }
+        educations = await Education.deleteById({ id });
+        return educations
       }
   }
   

@@ -1,34 +1,38 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
 
-function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
+function CertAddForm({ portfolioOwnerId, setCerts, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [fromDate, setFromDate] = useState(new Date());
-  const [toDate, setToDate] = useState(new Date());
+  const [whenDate, setWhenDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const user_id = portfolioOwnerId;
-    const from_date = fromDate.toISOString().split("T")[0];
-    const to_date = toDate.toISOString().split("T")[0];
+    const when_date = whenDate.toISOString().split("T")[0];
 
-    await Api.post("project", {
-      user_id: portfolioOwnerId,
-      title,
-      description,
-      from_date,
-      to_date,
-    });
+    try {
+      await Api.post("certificate", {
+        user_id: portfolioOwnerId,
+        title,
+        description,
+        when_date,
+      });
+    } catch (error) {
+      console.log("failed to get API");
+    }
 
-    const res = await Api.get("projects", user_id);
-    setProjects(res.data);
-    setIsAdding(false);
+    try {
+      const res = await Api.get("certificates", user_id);
+      setCerts(res.data);
+      setIsAdding(false);
+    } catch (err) {
+      console.log("error");
+    }
   };
 
   return (
@@ -36,7 +40,7 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
       <Form.Group controlId="formBasicTitle">
         <Form.Control
           type="text"
-          placeholder="프로젝트 제목"
+          placeholder="자격증 제목"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -50,16 +54,12 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
           onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
-      <Form.Group as={Row} className="mt-3">
-        <Col xs="auto">
-          <DatePicker
-            selected={fromDate}
-            onChange={(date) => setFromDate(date)}
-          />
-        </Col>
-        <Col xs="auto">
-          <DatePicker selected={toDate} onChange={(date) => setToDate(date)} />
-        </Col>
+
+      <Form.Group className="mt-3">
+        <DatePicker
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
+        />
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
@@ -76,4 +76,4 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
   );
 }
 
-export default ProjectAddForm;
+export default CertAddForm;

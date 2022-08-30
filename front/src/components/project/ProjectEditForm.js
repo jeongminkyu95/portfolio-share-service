@@ -25,7 +25,7 @@ function ProjectEditForm({ currentProject, setProjects, setIsEditing }) {
       to_date,
     });
 
-    const res = await Api.get("projectlist", user_id);
+    const res = await Api.get("projects", user_id);
     setProjects(res.data);
     setIsEditing(false);
   };

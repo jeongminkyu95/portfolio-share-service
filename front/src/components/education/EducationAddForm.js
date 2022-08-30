@@ -24,7 +24,7 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
     const user_id = portfolioOwnerId;
 
     //"education/create" 엔드포인트로 post요청함.
-    await Api.post("education/create", {
+    await Api.post("education", {
       user_id: portfolioOwnerId,
       school,
       major,
@@ -32,7 +32,7 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
     });
 
     // "educationlist/유저id" 엔드포인트로 get요청함.
-    const res = await Api.get("educationlist", user_id);
+    const res = await Api.get("educations", user_id);
     //educations를 response의 data로 세팅함.
     setEducations(res.data);
     //education을 추가하는 과정이 끝났으므로, is Adding을 false로 세팅함.
@@ -49,6 +49,7 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
           onChange={(e) => setSchool(e.target.value)}
         />
       </Form.Group>
+
       <Form.Group controlId="formBasicMajor" className="mb-3">
         <Form.Control
           type="text"
@@ -57,6 +58,7 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
           onChange={(e) => setMajor(e.target.value)}
         />
       </Form.Group>
+
       <div key={`inline-radio`} className="mb-3 mt-3">
         {positionList.map((object) => (
           <Form.Check
