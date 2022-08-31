@@ -22,7 +22,7 @@ const CertEditForm = ({ currentCert, setCerts, setIsEditing }) => {
       when_date,
     });
 
-    const res = await Api.get("certificatelist", user_id);
+    const res = await Api.get("certificates", user_id);
     setCerts(res.data);
     setIsEditing(false);
   };

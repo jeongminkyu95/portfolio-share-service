@@ -1,30 +1,36 @@
-import {Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Button, Row, Col } from "react-bootstrap";
+import ModalAlert from "./EduDeleteModal";
 
-
-function EducationCard({ education, isEditable, setIsEditing }) {
-    return (
-        <Card.Text>
-            <Row className = "align-items-center">
-                <Col>
-                <span>{education.school}</span>
-                <br />
-                <span className = "text-muted">{`${education.major} (${education.position})`}</span>
-                </Col>
-                {isEditable && (
-                    <Col xs lg = "1">
-                        <Button
-                            variant="outline-info"
-                            size="sm"
-                            onClick={() => setIsEditing((prev) => !prev)}
-                            className="mr-3"
-                        >
-                            편집
-                        </Button>
-                    </Col>
-                )}
-            </Row>
-        </Card.Text>
-    );
+function EducationCard({ education, setEducations, isEditable, setIsEditing }) {
+  return (
+    <Card.Text>
+      <Row className="align-items-center">
+        <Col>
+          <span>{education.school}</span>
+          <br />
+          <span className="text-muted">{`${education.major} (${education.position})`}</span>
+        </Col>
+        {isEditable && (
+          <Col xs lg="1">
+            <Button
+              variant="outline-info"
+              size="sm"
+              onClick={() => setIsEditing((prev) => !prev)}
+              className="mr-3"
+            >
+              편집
+            </Button>
+            <ModalAlert
+              propsEducation={education}
+              currentEducation={education}
+              setEducations={setEducations}
+              setIsEditing={setIsEditing}
+            />
+          </Col>
+        )}
+      </Row>
+    </Card.Text>
+  );
 }
 
 export default EducationCard;

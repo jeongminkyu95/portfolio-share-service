@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CertEditForm from "./CertEditForm";
 import { Card, Button, Row, Col } from "react-bootstrap";
+import ModalAlert from "./CertDeleteModal";
 
 const EditCert = ({ cert, setCerts, isEditable }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,6 +17,7 @@ const EditCert = ({ cert, setCerts, isEditable }) => {
       ) : (
         <CertCard
           cert={cert}
+          setCerts={setCerts}
           isEditable={isEditable}
           setIsEditing={setIsEditing}
         />
@@ -24,7 +26,7 @@ const EditCert = ({ cert, setCerts, isEditable }) => {
   );
 };
 
-const CertCard = ({ cert, isEditable, setIsEditing }) => {
+const CertCard = ({ cert, setCerts, isEditable, setIsEditing }) => {
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -33,7 +35,9 @@ const CertCard = ({ cert, isEditable, setIsEditing }) => {
           <br />
           <span className="text-muted">{cert.description}</span>
           <br />
-          <span className="text-muted">{cert.when_date}</span>
+          <span className="text-muted">
+            {new Date(cert.when_date).toLocaleDateString()}
+          </span>
         </Col>
         {isEditable && (
           <Col xs lg="1">
@@ -45,6 +49,12 @@ const CertCard = ({ cert, isEditable, setIsEditing }) => {
             >
               편집
             </Button>
+            <ModalAlert
+              propsCert={cert}
+              currentCert={cert}
+              setCerts={setCerts}
+              setIsEditing={setIsEditing}
+            />
           </Col>
         )}
       </Row>

@@ -15,24 +15,16 @@ function CertAddForm({ portfolioOwnerId, setCerts, setIsAdding }) {
     const user_id = portfolioOwnerId;
     const when_date = whenDate.toISOString().split("T")[0];
 
-    try {
-      await Api.post("certificate", {
-        user_id: portfolioOwnerId,
-        title,
-        description,
-        when_date,
-      });
-    } catch (error) {
-      console.log("failed to get API");
-    }
+    await Api.post("certificate", {
+      user_id: portfolioOwnerId,
+      title,
+      description,
+      when_date,
+    });
 
-    try {
-      const res = await Api.get("certificates", user_id);
-      setCerts(res.data);
-      setIsAdding(false);
-    } catch (err) {
-      console.log("error");
-    }
+    const res = await Api.get("certificates", user_id);
+    setCerts(res.data);
+    setIsAdding(false);
   };
 
   return (
