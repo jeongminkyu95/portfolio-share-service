@@ -2,10 +2,10 @@ import { Board } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class boardService {
-    static async addBoard({ writer, title, content }) {
+    static async addBoard({ title, content }) {
         const id = uuidv4();
 
-        const newBoard = { id, writer, title, content };
+        const newBoard = { id, title, content };
         
         const createdNewBoard = await Board.create({ newBoard });
         createdNewBoard.errorMessage = null;

@@ -6,10 +6,6 @@ const BoardSchema = new Schema (
             type: String,
             required: true,
         },
-        writer: {
-            type: String,
-            required: true,
-        },
         title: {
             type: String,
             required: true,

@@ -12,12 +12,10 @@ boardRouter.post('/board', async (req, res, next) => {
             "headers의 Content-Type을 application/json으로 설정해주세요"
           );
         }
-        const writer = req.body.writer;
         const title = req.body.title;
         const content = req.body.content;
 
         const newBoard = await boardService.addBoard({
-            writer,
             title,
             content,
           });
