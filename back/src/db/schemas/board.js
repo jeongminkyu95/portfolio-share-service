@@ -1,12 +1,12 @@
 import { Schema, model } from "mongoose";
 
-const PostSchema = new Schema (
+const BoardSchema = new Schema (
     {
         id: {
             type: String,
             required: true,
         },
-        user_id: {
+        writer: {
             type: String,
             required: true,
         },
@@ -14,16 +14,19 @@ const PostSchema = new Schema (
             type: String,
             required: true,
         },
-        description: {
+        content: {
             type: String,
             required: true,
         },
+        imgPath: {
+            type: String
+          },
     },
     {
         timestamps: true,
     }
 );
 
-const PostModel = model( "Post", PostSchema);
+const BoardModel = model( "Board", BoardSchema);
 
-export { PostModel };
+export { BoardModel };

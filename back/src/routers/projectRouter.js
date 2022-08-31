@@ -43,7 +43,7 @@ projectRouter.post('/project', async (req, res, next) => {
       const user_id = req.params.id;
 
       const projects = await projectService.getProjects({user_id});
-      console.log(projects);
+      
       if (projects.errorMessage) {
           throw new Error(projects.errorMessage);
        }
