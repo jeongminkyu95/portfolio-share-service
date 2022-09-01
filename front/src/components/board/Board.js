@@ -39,6 +39,11 @@ function Board() {
     const res = await Api.get("boards");
     setViewContent(res.data);
   };
+  const handleDelete = async (id) => {
+    await Api.delete("boards", id);
+    const res = await Api.get("boards");
+    setViewContent(res.data);
+  };
 
   const getValue = (e) => {
     // 이벤트가 발생하면 그 이벤트의 객체인 name과 value를 가지고 옴.
@@ -60,6 +65,14 @@ function Board() {
             <div className="board-card">
               <h2>{element.title}</h2>
               <div>{ReactHtmlParser(element.content)}</div>
+              <button
+                className="delete-button"
+                onClick={() => {
+                  handleDelete(element.id);
+                }}
+              >
+                삭제
+              </button>
             </div>
           ))
           .reverse()}
