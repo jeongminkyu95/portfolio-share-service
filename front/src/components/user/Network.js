@@ -6,7 +6,6 @@ import * as Api from "../../api";
 import UserCard from "./UserCard";
 import { UserStateContext } from "../../App";
 import Pagination from "./Pagination";
-import Board from "../board/Board";
 
 function Network() {
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ function Network() {
 
   return (
     <>
-      <Board />
       <Container fluid>
         <Row xs="auto" className="jusify-content-center">
           {users.slice(offset, offset + limit).map((user) => (
