@@ -1,6 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { projectService } from "../services/projectService";
+import { ifErrorMessage } from "../middlewares/errorMiddleware";
 
 const projectRouter = Router();
 
@@ -26,12 +27,8 @@ projectRouter.post('/project', async (req, res, next) => {
             to_date,
           });
 
-        if (newProject.errorMessage) {
-            throw new Error(newProject.errorMessage);
-        }
-      
+        ifErrorMessage(newProject);
         res.status(201).json(newProject);
-
     }catch (error) {
     next(error);
   }
@@ -44,10 +41,7 @@ projectRouter.post('/project', async (req, res, next) => {
 
       const projects = await projectService.getProjects({user_id});
       
-      if (projects.errorMessage) {
-          throw new Error(projects.errorMessage);
-       }
-       
+      ifErrorMessage(projects);
       res.status(200).send(projects);
     } catch (error) {
       next(error);
@@ -63,10 +57,7 @@ projectRouter.put('/projects/:id', async (req, res, next) => {
       const toUpdate = { title, description, from_date, to_date };
       const updatedProject = await projectService.setProject({ id, toUpdate });
 
-      if (updatedProject.errorMessage) {
-         throw new Error(updatedProject.errorMessage);
-      }
-
+      ifErrorMessage(updatedProject);
       res.status(200).json(updatedProject);
       } catch (error) {
         next(error);
@@ -76,19 +67,14 @@ projectRouter.put('/projects/:id', async (req, res, next) => {
 // 프로젝트 정보 삭제
 projectRouter.delete('/projects/:id', async (req, res, next) => {
   try{
-      const id = req.params.id;
-      const deletedProject = await projectService.deleteProject({id});
-
-      if (deletedProject.errorMessage) {
-        throw new Error(deletedProject.errorMessage);
-
-      } else {
-        res.send("삭제가 완료되었습니다.")
-      }
-
-      } catch (error) {
-        next(error);
-      }
+    const id = req.params.id;
+    const deletedProject = await projectService.deleteProject({id});
+        
+    ifErrorMessage(deletedProject)
+    res.send("삭제가 완료되었습니다.")
+  } catch (error) {
+      next(error);
+    }
 });
 
 export { projectRouter };

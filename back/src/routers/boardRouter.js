@@ -1,6 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { boardService } from "../services/boardService";
+import { ifErrorMessage } from "../middlewares/errorMiddleware";
 
 const boardRouter = Router();
 
@@ -20,12 +21,8 @@ boardRouter.post('/board', async (req, res, next) => {
             content,
           });
 
-        if (newBoard.errorMessage) {
-            throw new Error(newBoard.errorMessage);
-        }
-      
+        ifErrorMessage(newBoard);
         res.status(201).json(newBoard);
-
     }catch (error) {
     next(error);
   }
@@ -36,10 +33,7 @@ boardRouter.get('/boards', async (req, res, next) => {
     try {
         const boards = await boardService.getBoards();
 
-        if (boards.errorMessage) {
-            throw new Error(boards.errorMessage);
-         }
-         
+        ifErrorMessage(boards);
         res.status(200).send(boards);
       } catch (error) {
         next(error);
@@ -55,10 +49,7 @@ boardRouter.put('/boards/:id', async (req, res, next) => {
         const toUpdate = { title, content };
         const updatedBoard = await boardService.setBoard({ id, toUpdate });
 
-        if (updatedBoard.errorMessage) {
-           throw new Error(updatedBoard.errorMessage);
-        }
-
+        ifErrorMessage(updatedBoard);
         res.status(200).json(updatedBoard);
         } catch (error) {
           next(error);
@@ -71,10 +62,7 @@ boardRouter.put('/boards/:id', async (req, res, next) => {
     const id = req.params.id;
 		const boards = await boardService.deleteBoard({ id });
     
-    if (boards.errorMessage) {
-      throw new Error(boards.errorMessage);
-   }
-
+    ifErrorMessage(boards);
 		res.send("삭제가 완료되었습니다.");
 	} catch (error) {
 		next(error);

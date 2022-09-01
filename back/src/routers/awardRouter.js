@@ -1,7 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { awardService } from "../services/awardService";
-
+import { ifErrorMessage } from "../middlewares/errorMiddleware";
 
 const awardRouter = Router();
 
@@ -23,12 +23,8 @@ awardRouter.post('/award', async (req, res, next) => {
             description,
           });
 
-        if (newAward.errorMessage) {
-            throw new Error(newAward.errorMessage);
-        }
-      
+        ifErrorMessage(newAward);
         res.status(201).json(newAward);
-
     }catch (error) {
     next(error);
   }
@@ -43,10 +39,7 @@ awardRouter.put('/awards/:id', async (req, res, next) => {
       const toUpdate = { title, description };
       const updatedAward = await awardService.setAward({ id, toUpdate });
 
-      if (updatedAward.errorMessage) {
-         throw new Error(updatedAward.errorMessage);
-      }
-
+      ifErrorMessage(updatedAward);
       res.status(200).json(updatedAward);
       } catch (error) {
         next(error);
@@ -57,13 +50,9 @@ awardRouter.put('/awards/:id', async (req, res, next) => {
  awardRouter.get('/awards/:id', async (req, res, next) => {
     try {
         const user_id = req.params.id;
-
         const awards = await awardService.getAwards({user_id});
-        // console.log(awards); // user_id가 다를때 awards = [] 로 나옴
-        if (awards.errorMessage) { 
-            throw new Error(awards.errorMessage);
-         }
-         
+
+        ifErrorMessage(awards);
         res.status(200).send(awards);
       } catch (error) {
         next(error);
@@ -76,13 +65,8 @@ awardRouter.delete('/awards/:id', async (req, res, next) => {
       const id = req.params.id;
       const deletedAward = await awardService.deleteAward({id});
 
-      if (deletedAward.errorMessage) {
-        throw new Error(deletedAward.errorMessage);
-
-      } else {
-        res.send("삭제가 완료되었습니다.")
-      }
-
+      ifErrorMessage(deletedAward);
+      res.send("삭제가 완료되었습니다.")
       } catch (error) {
         next(error);
       }

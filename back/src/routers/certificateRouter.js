@@ -1,6 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { certificateService } from "../services/certificateService";
+import { ifErrorMessage } from "../middlewares/errorMiddleware";
 
 const certificateRouter = Router();
 
@@ -24,12 +25,8 @@ certificateRouter.post('/certificate', async (req, res, next) => {
             when_date,
           });
 
-        if (newCertificate.errorMessage) {
-            throw new Error(newCertificate.errorMessage);
-        }
-      
+        ifErrorMessage(newCertificate);
         res.status(201).json(newCertificate);
-
     }catch (error) {
     next(error);
   }
@@ -39,13 +36,9 @@ certificateRouter.post('/certificate', async (req, res, next) => {
  certificateRouter.get('/certificates/:id', async (req, res, next) => {
   try {
       const user_id = req.params.id;
-
       const certificates = await certificateService.getCertificates({user_id});
 
-      if (certificates.errorMessage) {
-          throw new Error(certificates.errorMessage);
-       }
-       
+      ifErrorMessage(certificates);
       res.status(200).send(certificates);
     } catch (error) {
       next(error);
@@ -61,10 +54,7 @@ certificateRouter.put('/certificates/:id', async (req, res, next) => {
       const toUpdate = { title, description, when_date };
       const updatedCertificate = await certificateService.setCertificate({ id, toUpdate });
 
-      if (updatedCertificate.errorMessage) {
-         throw new Error(updatedCertificate.errorMessage);
-      }
-
+      ifErrorMessage(updatedCertificate);
       res.status(200).json(updatedCertificate);
       } catch (error) {
         next(error);
@@ -77,10 +67,7 @@ certificateRouter.delete('/certificates/:id', async (req, res, next) => {
     const id = req.params.id;
 		const certificates = await certificateService.deleteCertificate({ id });
     
-    if (certificates.errorMessage) {
-      throw new Error(certificates.errorMessage);
-   }
-
+    ifErrorMessage(certificates);
     res.send("삭제가 완료되었습니다.");
 	} catch (error) {
 		next(error);

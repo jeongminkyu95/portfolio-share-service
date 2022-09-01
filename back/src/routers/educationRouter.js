@@ -1,6 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { educationService } from "../services/educationService";
+import { ifErrorMessage } from "../middlewares/errorMiddleware";
 
 const educationRouter = Router();
 
@@ -24,12 +25,8 @@ educationRouter.post('/education', async (req, res, next) => {
             position,
           });
 
-        if (newEducation.errorMessage) {
-            throw new Error(newEducation.errorMessage);
-        }
-      
+        ifErrorMessage(newEducation);
         res.status(201).json(newEducation);
-
     }catch (error) {
     next(error);
   }
@@ -44,10 +41,7 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
         const toUpdate = { school, major, position };
         const updatedEducation = await educationService.setEducation({ id, toUpdate });
 
-        if (updatedEducation.errorMessage) {
-           throw new Error(updatedEducation.errorMessage);
-        }
-
+        ifErrorMessage(updatedEducation);
         res.status(200).json(updatedEducation);
         } catch (error) {
           next(error);
@@ -58,13 +52,9 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
  educationRouter.get('/educations/:id', async (req, res, next) => {
     try {
         const user_id = req.params.id;
-
         const educations = await educationService.getEducations({user_id});
 
-        if (educations.errorMessage) {
-            throw new Error(educations.errorMessage);
-         }
-         
+        ifErrorMessage(educations);
         res.status(200).send(educations);
       } catch (error) {
         next(error);
@@ -77,10 +67,7 @@ educationRouter.put('/educations/:id', async (req, res, next) => {
     const id = req.params.id;
 		const educations = await educationService.deleteEducation({ id });
     
-    if (educations.errorMessage) {
-      throw new Error(educations.errorMessage);
-   }
-
+    ifErrorMessage(educations);
 		res.send("삭제가 완료되었습니다.");
 	} catch (error) {
 		next(error);
