@@ -29,6 +29,9 @@ function Header() {
         <Nav.Link disabled>안녕하세요, 포트폴리오 공유 서비스입니다.</Nav.Link>
       </Nav.Item>
       <Nav.Item>
+        <Nav.Link onClick={() => navigate("/board/Board")}>개새판</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
         <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
       </Nav.Item>
       <Nav.Item>
