@@ -1,18 +1,36 @@
 .Board {
   text-align: center;
 }
+.Board h1 {
+  font-weight: bold;
+}
 
 .board-container {
   margin: 0 auto;
-  width: 60%;
+  width: 55%;
   border: 1px solid #333;
   padding: 10px 0 30px 0;
   border-radius: 5px;
   margin-bottom: 50px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 400px;
+  margin-top: 37px;
+}
+
+.board-card {
+  border-bottom: 1px solid #333;
+  padding-top: 20px;
+}
+.board-card h2 {
+  font-size: 23px;
+}
+.board-card div {
+  font-size: 18px;
 }
 
 .form-wrapper {
-  width: 60%;
+  width: 55%;
   margin: 0 auto;
 }
 
@@ -23,10 +41,10 @@
 }
 
 .submit-button {
-  width: 200px;
+  width: 180px;
   height: 50px;
   font-size: 20px;
-  padding: 20px;
+  font-weight: bold;
   border: none;
   background: dodgerblue;
   color: white;

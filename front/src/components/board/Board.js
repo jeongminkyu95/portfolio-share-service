@@ -34,7 +34,7 @@ function Board() {
       title: "",
       content: "",
     });
-    alert("등록 완료");
+    //alert("등록 완료");
 
     const res = await Api.get("boards");
     setViewContent(res.data);
@@ -47,20 +47,23 @@ function Board() {
       ...boardContent,
       [name]: value, //궁금해
     });
-    console.log(name, value);
-    console.log(boardContent);
+    // console.log(name, value);
+    // console.log(boardContent);
   };
 
   return (
     <div className="Board">
-      <h1>게시판</h1>
+      <h1>개발새발 게시판</h1>
       <div className="board-container">
-        {viewContent.map((element) => (
-          <div style={{ borderBottom: "1px solid #333" }}>
-            <h2>{element.title}</h2>
-            <div>{ReactHtmlParser(element.content)}</div>
-          </div>
-        ))}
+        {viewContent
+          .map((element) => (
+            <div className="board-card">
+              <h2>{element.title}</h2>
+              <div>{ReactHtmlParser(element.content)}</div>
+            </div>
+          ))
+          .reverse()}
+        {/* 게시글 최신순으로 정렬(reverse()활용)  */}
       </div>
       <div className="form-wrapper">
         <input
@@ -74,14 +77,11 @@ function Board() {
         <CKEditor
           editor={ClassicEditor}
           data={boardContent.content}
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor is ready to use!", editor);
-          }}
+          onReady={(editor) => {}}
           onChange={(event, editor) => {
             const data = editor.getData(); // ckeditor에서는 직접 데이터를 가져올 때 getData()를 사용함
-            console.log({ event, editor, data });
-            console.log(boardContent);
+            //console.log({ event, editor, data });
+            //console.log(boardContent);
             setBoardContent((current) => {
               return { ...current, content: data };
             });
