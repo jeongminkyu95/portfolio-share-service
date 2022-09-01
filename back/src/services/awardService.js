@@ -43,11 +43,6 @@ class awardService {
 
     static async getAwards({ user_id }) {
         const awards = await Award.findByUserId({ user_id });
-        if (awards.length === 0) {
-            const errorMessage =
-              "내역이 없습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
-          }
         return awards;
       }
 

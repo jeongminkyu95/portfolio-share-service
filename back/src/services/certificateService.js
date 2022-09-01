@@ -17,11 +17,6 @@ class certificateService {
 
     static async getCertificates({ user_id }) {
       const certificates = await Certificate.findByUserId({ user_id });
-      if (certificates.length === 0) {
-          const errorMessage =
-            "내역이 없습니다. 다시 한 번 확인해 주세요.";
-          return { errorMessage };
-        }
       return certificates;
     }
 

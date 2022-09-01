@@ -50,11 +50,6 @@ class projectService {
 
     static async getProjects({ user_id }) {
         const projects = await Project.findByUserId({ user_id });
-        
-        if (projects.length === 0) {
-            const errorMessage = "내역이 없습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
-        }
         return projects;
     }
 
