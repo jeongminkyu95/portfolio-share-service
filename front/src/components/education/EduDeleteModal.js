@@ -2,26 +2,18 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import * as Api from "../../api";
 
-const ModalAlert = ({
-  propsEducation,
-  currentEducation,
-  setIsEditing,
-  setEducations,
-}) => {
+const ModalAlert = ({ currentEducation, setEducations }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleClose = () => setOpenModal(!openModal);
 
-  const education = propsEducation;
-
   const handleDelete = async () => {
     const user_id = currentEducation.user_id;
 
-    await Api.delete("educations", education.id);
+    await Api.delete("educations", currentEducation.id);
 
     const res = await Api.get("educations", user_id);
     setEducations(res.data);
-    setIsEditing(false);
   };
 
   return (

@@ -24,12 +24,7 @@ function ProjectCard({ project, setProjects, isEditable, setIsEditing }) {
             >
               편집
             </Button>
-            <ModalAlert
-              propsProject={project}
-              currentProject={project}
-              setProjects={setProjects}
-              setIsEditing={setIsEditing}
-            />
+            <ModalAlert currentProject={project} setProjects={setProjects} />
           </Col>
         )}
       </Row>

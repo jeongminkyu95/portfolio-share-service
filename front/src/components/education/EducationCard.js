@@ -21,10 +21,8 @@ function EducationCard({ education, setEducations, isEditable, setIsEditing }) {
               편집
             </Button>
             <ModalAlert
-              propsEducation={education}
               currentEducation={education}
               setEducations={setEducations}
-              setIsEditing={setIsEditing}
             />
           </Col>
         )}

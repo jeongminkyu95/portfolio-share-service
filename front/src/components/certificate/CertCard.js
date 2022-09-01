@@ -49,12 +49,7 @@ const CertCard = ({ cert, setCerts, isEditable, setIsEditing }) => {
             >
               편집
             </Button>
-            <ModalAlert
-              propsCert={cert}
-              currentCert={cert}
-              setCerts={setCerts}
-              setIsEditing={setIsEditing}
-            />
+            <ModalAlert currentCert={cert} setCerts={setCerts} />
           </Col>
         )}
       </Row>

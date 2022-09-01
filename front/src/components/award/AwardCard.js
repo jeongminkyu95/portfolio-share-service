@@ -20,12 +20,7 @@ function AwardCard({ award, setAwards, isEditable, setIsEditing }) {
             >
               편집
             </Button>
-            <ModalAlert
-              propsAward={award}
-              currentAward={award}
-              setAwards={setAwards}
-              setIsEditing={setIsEditing}
-            />
+            <ModalAlert currentAward={award} setAwards={setAwards} />
           </Col>
         )}
       </Row>
