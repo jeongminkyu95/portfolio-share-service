@@ -15,11 +15,6 @@ class boardService {
 
     static async getBoards() {
         const boards = await Board.findBoards();
-        
-        if (boards.length === 0) {
-            const errorMessage = "내역이 없습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
-        }
         return boards;
     }
 
