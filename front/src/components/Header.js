@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
@@ -22,7 +22,6 @@ function Header() {
     // 기본 페이지로 돌아감.
     navigate("/");
   };
-  const [key, setKey] = useState("mypage");
   return (
     <Nav activeKey={location.pathname} fill variant="tabs" className="navbar">
       <Nav.Item className="me-auto">
