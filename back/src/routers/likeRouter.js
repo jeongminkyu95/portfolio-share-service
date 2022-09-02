@@ -31,10 +31,9 @@ likeRouter.post("/like/unlike", (req, res) => {
 
 likeRouter.get("/like/getLike/:id", async (req, res, next) => {
     try {
-        const commentId = req.params.id;
+        const userId = req.params.id;
 
-        const likes = await LikeModel.find({commentId: commentId});
-      
+        const likes = await LikeModel.find({userId: userId});
         ifErrorMessage(likes);
         res.status(200).send(likes);
       } catch (error) {
