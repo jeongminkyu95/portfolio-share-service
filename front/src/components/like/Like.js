@@ -30,12 +30,16 @@ const Like = ({ portfolioOwnerId, user }) => {
   };
 
   useEffect(() => {
-    Api.get("like/getLike", portfolioOwnerId).then((res) => {
+    Api.get("like/getLike", user).then((res) => {
       if (res.data) {
-        setLike(!!res.data.length);
+        res.data.map((like) => {
+          if (like.commentId === portfolioOwnerId) {
+            setLike(true);
+          }
+        });
       }
     });
-  }, []);
+  }, []);   
 
   const clickLike = () => {
     if (like) {
