@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
+import Like from "../like/Like";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
@@ -10,11 +11,14 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
           <Card.Img
             style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
-            src="http://placekitten.com/200/200"
-            alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
+            src="https://picsum.photos/200/200"
+            alt="랜덤 사진 (http://picsum.photos API 사용)"
           />
         </Row>
-        <Card.Title>{user?.name}</Card.Title>
+        <Card.Title>
+          {user?.name}
+          <Like />
+        </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
 

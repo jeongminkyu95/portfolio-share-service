@@ -10,15 +10,13 @@ function Projects({ portfolioOwnerId, isEditable }) {
 
   //useEffect
   useEffect(() => {
-    Api.get("projects", portfolioOwnerId).then((res) =>
-      setProjects(res.data)
-    );
+    Api.get("projects", portfolioOwnerId).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]);
 
   return (
     <Card>
       <Card.Body>
-        <Card.Title>프로젝트</Card.Title>
+        <Card.Title className="fw-bold">👨‍👩‍👧‍👦프로젝트</Card.Title>
         {Projects.map((project) => (
           <Project
             key={project.id}

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import GlobalStyle from "./GlobalStyle";
+import DarkModeToggle from "./components/darkmode/DarkModeToggle";
 
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
@@ -9,6 +11,7 @@ import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
+import Board from "./components/board/Board";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -55,6 +58,9 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
+        <GlobalStyle />
+
+        <DarkModeToggle />
         <Router>
           <Header />
           <Routes>
@@ -63,6 +69,7 @@ function App() {
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/users/:userId" element={<Portfolio />} />
             <Route path="/network" element={<Network />} />
+            <Route path="/board/Board" exact element={<Board />} />
             <Route path="*" element={<Portfolio />} />
           </Routes>
         </Router>

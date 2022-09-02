@@ -18,7 +18,7 @@ function Awards({ portfolioOwnerId, isEditable }) {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>수상이력</Card.Title>
+        <Card.Title className="fw-bold">🏆수상이력</Card.Title>
         {awards.map((award) => (
           <Award
             key={award.id}

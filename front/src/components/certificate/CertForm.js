@@ -9,15 +9,13 @@ function CertForm({ portfolioOwnerId, isEditable }) {
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    Api.get("certificatelist", portfolioOwnerId).then((res) =>
-      setCerts(res.data)
-    );
+    Api.get("certificates", portfolioOwnerId).then((res) => setCerts(res.data));
   }, [portfolioOwnerId]);
 
   return (
     <Card>
-      <Card.Body>
-        <Card.Title>자격증</Card.Title>
+      <Card.Body className="card-body">
+        <Card.Title className="fw-bold">🧾자격증</Card.Title>
         {certs.map((cert) => (
           <EditCert
             key={cert.id}
