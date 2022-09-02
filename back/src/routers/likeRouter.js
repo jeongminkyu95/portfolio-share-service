@@ -29,9 +29,9 @@ likeRouter.post("/like/unlike", (req, res) => {
     );
 });
 
-likeRouter.get("/like/getLike", async (req, res, next) => {
+likeRouter.get("/like/getLike/:id", async (req, res, next) => {
     try {
-        let { commentId } = req.body;
+        const commentId = req.params.id;
 
         const likes = await LikeModel.find({commentId: commentId});
       
