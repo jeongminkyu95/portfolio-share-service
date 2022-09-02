@@ -58,7 +58,7 @@ function Board() {
 
   return (
     <div className="Board">
-      <h1>개발새발 게시판</h1>
+      <h1>익명 놀이터</h1>
       <div className="board-container">
         {viewContent
           .map((element) => (
