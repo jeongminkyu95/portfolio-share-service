@@ -63,8 +63,10 @@ function Board() {
         {viewContent
           .map((element) => (
             <div className="board-card">
-              <h2>{element.title}</h2>
-              <div>{ReactHtmlParser(element.content)}</div>
+              <div className="board-content">
+                <h2>{element.title}</h2>
+                <div>{ReactHtmlParser(element.content)}</div>
+              </div>
               <button
                 className="delete-button"
                 onClick={() => {
