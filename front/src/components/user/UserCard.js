@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import Like from "../like/Like";
+import { UserStateContext } from "../../App";
+import { useContext } from "react";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
+  const userState = useContext(UserStateContext);
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
@@ -17,7 +20,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         </Row>
         <Card.Title>
           {user?.name}
-          <Like />
+          <Like portfolioOwnerId={user?.id} user={userState.user?.id} />
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
