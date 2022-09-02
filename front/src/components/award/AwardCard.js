@@ -1,6 +1,7 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import ModalAlert from "./AwardDeleteModal";
 
-function AwardCard({ award, isEditable, setIsEditing }) {
+function AwardCard({ award, setAwards, isEditable, setIsEditing }) {
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -19,6 +20,7 @@ function AwardCard({ award, isEditable, setIsEditing }) {
             >
               편집
             </Button>
+            <ModalAlert currentAward={award} setAwards={setAwards} />
           </Col>
         )}
       </Row>

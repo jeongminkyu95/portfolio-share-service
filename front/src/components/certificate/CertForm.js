@@ -9,9 +9,7 @@ function CertForm({ portfolioOwnerId, isEditable }) {
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    Api.get("certificatelist", portfolioOwnerId).then((res) =>
-      setCerts(res.data)
-    );
+    Api.get("certificates", portfolioOwnerId).then((res) => setCerts(res.data));
   }, [portfolioOwnerId]);
 
   return (

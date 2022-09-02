@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
-import swal from 'sweetalert';
-
+import swal from "sweetalert";
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -52,11 +51,11 @@ function RegisterForm() {
       });
 
       // 로그인 페이지로 이동함.
-      
-      swal("Congratulations!","회원가입이 완료되었습니다", "success");
+
+      swal("Congratulations!", "회원가입이 완료되었습니다", "success");
       navigate("/login");
     } catch (err) {
-      swal("Sorry😥","이미 등록된 메일입니다.", "error");
+      swal("Sorry😥", "이미 등록된 메일입니다.", "error");
     }
   };
 

@@ -1,6 +1,7 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import ModalAlert from "./ProjectDeleteModal";
 
-function ProjectCard({ project, isEditable, setIsEditing }) {
+function ProjectCard({ project, setProjects, isEditable, setIsEditing }) {
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -25,6 +26,7 @@ function ProjectCard({ project, isEditable, setIsEditing }) {
             >
               편집
             </Button>
+            <ModalAlert currentProject={project} setProjects={setProjects} />
           </Col>
         )}
       </Row>
