@@ -110,6 +110,9 @@ input[type="checkbox"].dmcheck {
     background-color: #f6f6f6;
   }
 }
+.nav-link.active{
+  background-color: transparent !important;
+}
 
 `;
 

@@ -28,28 +28,22 @@ function Header() {
         <Nav.Link disabled>안녕하세요, 포트폴리오 공유 서비스입니다.</Nav.Link>
       </Nav.Item>
       {isLogin && (
-        <Nav.Item>
-          <Nav.Link
-            style={{ color: "white" }}
-            onClick={() => navigate("/board/Board")}
-          >
+        <Nav.Item eventKey="/board/Board">
+          <Nav.Link style={{ color: "white" }} href="/board/Board">
             놀이터
           </Nav.Link>
         </Nav.Item>
       )}
       {isLogin && (
-        <Nav.Item>
-          <Nav.Link style={{ color: "white" }} onClick={() => navigate("/")}>
+        <Nav.Item eventKey="/">
+          <Nav.Link style={{ color: "white" }} href="/">
             나의 페이지
           </Nav.Link>
         </Nav.Item>
       )}
       {isLogin && (
-        <Nav.Item>
-          <Nav.Link
-            style={{ color: "white" }}
-            onClick={() => navigate("/network")}
-          >
+        <Nav.Item eventKey="/network">
+          <Nav.Link style={{ color: "white" }} href="/network">
             네트워크
           </Nav.Link>
         </Nav.Item>
