@@ -24,19 +24,25 @@ function Header() {
   };
 
   return (
-    <Nav activeKey={location.pathname}>
-      <Nav.Item className="me-auto mb-5">
+    <Nav activeKey={location.pathname} className="navbar">
+      <Nav.Item className="me-auto">
         <Nav.Link disabled>안녕하세요, 포트폴리오 공유 서비스입니다.</Nav.Link>
       </Nav.Item>
-      <Nav.Item>
-        <Nav.Link onClick={() => navigate("/board/Board")}>개새판</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
-      </Nav.Item>
+      {isLogin && (
+        <Nav.Item>
+          <Nav.Link onClick={() => navigate("/board/Board")}>놀이터</Nav.Link>
+        </Nav.Item>
+      )}
+      {isLogin && (
+        <Nav.Item>
+          <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
+        </Nav.Item>
+      )}
+      {isLogin && (
+        <Nav.Item>
+          <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
+        </Nav.Item>
+      )}
       {isLogin && (
         <Nav.Item>
           <Nav.Link onClick={logout}>로그아웃</Nav.Link>

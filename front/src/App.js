@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import GlobalStyle from "./GlobalStyle";
+import DarkModeToggle from "./components/darkmode/DarkModeToggle";
 
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
@@ -56,6 +58,9 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
+        <GlobalStyle />
+
+        <DarkModeToggle />
         <Router>
           <Header />
           <Routes>

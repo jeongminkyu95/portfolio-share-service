@@ -16,8 +16,8 @@ function CertForm({ portfolioOwnerId, isEditable }) {
 
   return (
     <Card>
-      <Card.Body>
-        <Card.Title>자격증</Card.Title>
+      <Card.Body className="card-body">
+        <Card.Title className="fw-bold">🧾자격증</Card.Title>
         {certs.map((cert) => (
           <EditCert
             key={cert.id}
