@@ -15,7 +15,9 @@ body.light-mode {
 }
 
 body.dark-mode .card-body {
-  background-color: #10171d;
+  background-color: 
+#1d2327
+;
 }
 
 body.dark-mode {
@@ -23,7 +25,7 @@ body.dark-mode {
   color: #dfdfdf;
 
   .navbar {
-    background-color: #1b2938;
+    background-color: #216075;
   }
 
   .dark-mode-toggle > button {
@@ -36,8 +38,8 @@ body.dark-mode {
 
 .navbar {
   width: 100%;
-  height: 80px;
-  background-color: #95d3ff;
+  height: 60px;
+  background-color:#95d3ff ;
   padding: 1px;
   margin-bottom: 30px;
 

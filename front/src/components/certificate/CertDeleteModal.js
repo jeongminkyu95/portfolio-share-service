@@ -19,7 +19,7 @@ const ModalAlert = ({ currentCert, setCerts }) => {
   return (
     <>
       <Button
-        variant="outline-info"
+        variant="outline-danger"
         size="sm"
         onClick={handleClose}
         className="mr-3"
@@ -28,7 +28,9 @@ const ModalAlert = ({ currentCert, setCerts }) => {
       </Button>
 
       <Modal show={openModal} onHide={handleClose} centered>
-        <Modal.Body>정말 삭제하시겠습니까?</Modal.Body>
+        <Modal.Body style={{ color: "black" }}>
+          정말 삭제하시겠습니까?
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             취소
