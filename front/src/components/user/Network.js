@@ -6,7 +6,6 @@ import * as Api from "../../api";
 import UserCard from "./UserCard";
 import { UserStateContext } from "../../App";
 import Pagination from "./Pagination";
-import DarkModeToggle from "../darkmode/DarkModeToggle";
 
 function Network() {
   const navigate = useNavigate();

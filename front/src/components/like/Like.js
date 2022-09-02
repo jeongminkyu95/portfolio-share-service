@@ -3,47 +3,39 @@ import * as Api from "../../api";
 
 const Like = ({ portfolioOwnerId, user }) => {
   const [like, setLike] = useState(false);
-  //   const [action, setAction] = useState(null);
 
-  //   const toggleLike = () => {
-  //     const body = {
-  //       commnetId: portfolioOwnerId.id,
-  //       userId: user.id,
-  //     };
+  const onClickLike = () => {
+    const body = {
+      commentId: portfolioOwnerId,
+      userId: user,
+    };
 
-  //     if (action === null) {
-  //       Api.post("like/uplike", body).then((res) => {
-  //         if (res.data.upLike) {
-  //           setAction("liked");
-  //           setLike((prev) => !prev);
-  //         }
-  //       });
-  //     } else if (action === "liked") {
-  //       Api.post("like/unlike", body).then((res) => {
-  //         if (res.data.unlike) {
-  //           setAction(null);
-  //           setLike((prev) => !prev);
-  //         }
-  //       });
-  //     }
-  //   };
+    if (like) {
+      Api.post("like/unlike", body).then((res) => {
+        if (res.data.unLike) {
+          setLike(false);
+        } else {
+          console.log(res.data.err);
+        }
+      });
+    } else {
+      Api.post("like/uplike", body).then((res) => {
+        if (res.data.upLike) {
+          setLike(true);
+        } else {
+          console.log(res.data.err);
+        }
+      });
+    }
+  };
 
-  //   useEffect(() => {
-  //     const body = {
-  //       commnetId: portfolioOwnerId.id,
-  //     };
-  //     Api.post("like/getlike", body).then((res) => {
-  //       if (res.data.getlike) {
-  //         setLike(res.data.like.length);
-
-  //         res.data.like.map((like) => {
-  //           if (like.userId === user.data.id) {
-  //             setAction("liked");
-  //           }
-  //         });
-  //       }
-  //     });
-  //   }, []);
+  useEffect(() => {
+    Api.get("like/getLike", portfolioOwnerId).then((res) => {
+      if (res.data) {
+        setLike(!!res.data.length);
+      }
+    });
+  }, []);
 
   const clickLike = () => {
     if (like) {
@@ -60,6 +52,7 @@ const Like = ({ portfolioOwnerId, user }) => {
           style={{ cursor: "pointer" }}
           onClick={() => {
             clickLike();
+            onClickLike();
           }}
         >
           💙
@@ -69,6 +62,7 @@ const Like = ({ portfolioOwnerId, user }) => {
           style={{ cursor: "pointer" }}
           onClick={() => {
             clickLike();
+            onClickLike();
           }}
         >
           🤍
