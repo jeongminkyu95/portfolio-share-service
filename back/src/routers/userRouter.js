@@ -2,6 +2,7 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
+import { ifErrorMessage } from "../middlewares/errorMiddleware";
 
 const userAuthRouter = Router();
 
@@ -25,10 +26,7 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
       password,
     });
 
-    if (newUser.errorMessage) {
-      throw new Error(newUser.errorMessage);
-    }
-
+    ifErrorMessage(newUser);
     res.status(201).json(newUser);
   } catch (error) {
     next(error);
@@ -44,10 +42,7 @@ userAuthRouter.post("/user/login", async function (req, res, next) {
     // 위 데이터를 이용하여 유저 db에서 유저 찾기
     const user = await userAuthService.getUser({ email, password });
 
-    if (user.errorMessage) {
-      throw new Error(user.errorMessage);
-    }
-
+    ifErrorMessage(user);
     res.status(200).send(user);
   } catch (error) {
     next(error);
@@ -79,10 +74,7 @@ userAuthRouter.get(
         user_id,
       });
 
-      if (currentUserInfo.errorMessage) {
-        throw new Error(currentUserInfo.errorMessage);
-      }
-
+      ifErrorMessage(currentUserInfo);
       res.status(200).send(currentUserInfo);
     } catch (error) {
       next(error);
@@ -108,10 +100,7 @@ userAuthRouter.put(
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
 
-      if (updatedUser.errorMessage) {
-        throw new Error(updatedUser.errorMessage);
-      }
-
+      ifErrorMessage(updatedUser);
       res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
@@ -127,10 +116,7 @@ userAuthRouter.get(
       const user_id = req.params.id;
       const currentUserInfo = await userAuthService.getUserInfo({ user_id });
 
-      if (currentUserInfo.errorMessage) {
-        throw new Error(currentUserInfo.errorMessage);
-      }
-
+      ifErrorMessage(currentUserInfo);
       res.status(200).send(currentUserInfo);
     } catch (error) {
       next(error);

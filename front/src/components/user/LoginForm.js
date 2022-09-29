@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-
+import { Alert } from 'reactstrap';
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
 
@@ -13,7 +13,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   //useState로 password 상태를 생성함.
   const [password, setPassword] = useState("");
-
+  const [login, setLogin] = useState(true);
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
     return email
@@ -55,6 +55,7 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
+      setLogin(false);
       console.log("로그인에 실패하였습니다.\n", err);
     }
   };
@@ -91,6 +92,12 @@ function LoginForm() {
                 <Form.Text className="text-success">
                   비밀번호는 4글자 이상입니다.
                 </Form.Text>
+              )}
+            </Form.Group>
+
+            <Form.Group className="mt-3">
+              {!login && (
+                <Alert color="danger">로그인에 실패하였습니다.</Alert>
               )}
             </Form.Group>
 
